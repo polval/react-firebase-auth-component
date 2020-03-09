@@ -1,68 +1,62 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Imgur](https://imgur.com/4fiqYRr.png)
 
-## Available Scripts
+To use this component, you must first have a firebase account.
 
-In the project directory, you can run:
+[Identify/register yourself on the firebase console](https://console.firebase.google.com/) and follow the instructions below.
 
-### `yarn start`
+## Configure Firebase console
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Follow these instructions to create your application in the firebase interface. You'll need to obtain some information for the configuration of the component in the PandaSuite studio.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+![Imgur](https://i.imgur.com/S3NxN2e.png)
+![Imgur](https://imgur.com/vmx7suc.png)
+![Imgur](https://imgur.com/k926Clx.png)
 
-### `yarn test`
+Now that the application is created, you need to enable login/password authentication.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![Imgur](https://imgur.com/ihBpOnJ.png)
+![Imgur](https://imgur.com/Ng1G2ip.png)
+![Imgur](https://imgur.com/54YauhM.png)
 
-### `yarn build`
+### Additional Steps for ```Advanced user fields``` component's option
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This configuration is only required when using advanced fields. They are indeed stored in a specific firebase database that you have to create beforehand.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+![Imgur](https://imgur.com/isIqAzt.png)
+![Imgur](https://imgur.com/2WZPTSM.png)
+![Imgur](https://imgur.com/a5cA69p.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Make sure to update the security rules so that you are not blocked after 30 days.
 
-### `yarn eject`
+![Imgur](https://imgur.com/xJBTmGp.png)
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+    // This rule allows anyone on the internet to view, edit, and delete
+    // all data in your Firestore database. It is useful for getting
+    // started, but it is configured to expire after 30 days because it
+    // leaves your app open to attackers. At that time, all client
+    // requests to your Firestore database will be denied.
+    //
+    // Make sure to write security rules for your app before that time, or else
+    // your app will lose access to your Firestore database
+    match /users/{userId} {
+      allow read, write: if request.auth.uid == userId
+    }
+  }
+}
+```
+![Imgur](https://imgur.com/PjD4D5P.png)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Configure PandaSuite component
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+You need to retrieve information from the Firebase console to update it to the PandaSuite component.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+![Imgur](https://imgur.com/JIHnHli.png)
+![Imgur](https://imgur.com/eAncOOW.png)
 
-## Learn More
+On PandaSuite:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+![Imgur](https://imgur.com/SnrYPFP.png)
