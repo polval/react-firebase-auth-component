@@ -9,11 +9,6 @@
         "type": "String"
       },
       {
-        "id": "authDomain",
-        "name": "authDomain",
-        "type": "String"
-      },
-      {
         "id": "projectId",
         "name": "projectId",
         "type": "String"
