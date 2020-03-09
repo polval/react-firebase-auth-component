@@ -1,97 +1,76 @@
 {
     "version": "2.0.0",
     "main": "",
-  
-    "system": {
-      "autoSave": false,
-      "actions": [
-        {
-          "id": "toMarker",
-          "name": "Change Image",
-          "locale_name": {
-            "fr_FR": "Change Image"
-          },
-          "params": [
-            { "id": "useless", "name": "Useless", "locale_name": {"fr_FR": "Inutile"}, "type": "Boolean" }
-          ]
-        }
-      ],
-      "events": [
-        {
-          "id": "triggerMarker",
-          "name": "Image",
-          "locale_name": {
-            "fr_FR": "Image"
-          }
-        }
-      ],
-      "markers": [
-        {
-          "params": [
-            { "id": "src", "name": "Source", "locale_name": {"fr_FR": "Source"}, "type": "String" }
-          ]
-        }
-      ]
-    },
 
     "properties": [
       {
-        "id": "searchTerm",
-        "name": "Search Term",
+        "id": "apiKey",
+        "name": "apiKey",
+        "type": "String"
+      },
+      {
+        "id": "authDomain",
+        "name": "authDomain",
+        "type": "String"
+      },
+      {
+        "id": "projectId",
+        "name": "projectId",
+        "type": "String"
+      },
+      {
+        "id": "forceAuthenticationAfter",
+        "name": "Force authentication after (hours)",
         "locale_name": {
-          "fr_FR": "Terme de recherche"
+          "fr_FR": "Forcer l'authentification après (heures)"
         },
-        "type": "String",
-        "value": "panda"
+        "type": "Integer",
+        "value": 0
+      },
+      {
+        "id": "verifyEmail",
+        "name": "Force email verification",
+        "locale_name": {
+          "fr_FR": "Forcer la vérification d'email"
+        },
+        "type": "Boolean",
+        "value": false
+      },
+      {
+        "id": "advancedFields",
+        "name": "Advanced user fields",
+        "locale_name": {
+          "fr_FR": "Champs utilisateurs avancés"
+        },
+        "type": "Boolean",
+        "value": false
       }
     ],
   
     "events": [
       {
-        "id": "imageChanged",
-        "name": "Image Changed",
+        "id": "onSignedIn",
+        "name": "User Signed In",
         "locale_name": {
-          "fr_FR": "Image Changée"
+          "fr_FR": "Utilisateur connecté"
+        }
+      },
+      {
+        "id": "onSignedOut",
+        "name": "User Signed Out",
+        "locale_name": {
+          "fr_FR": "Utilisateur Déconnecté"
         }
       }
     ],
   
     "actions": [
       {
-        "id": "changeColor",
-        "name": "Change Color",
-        "params": [
-          {
-            "id": "backgroundColor",
-            "name": "Background Color",
-            "locale_name": {
-              "fr_FR": "Couleur de fond"
-            },
-            "type": "String",
-            "value": "#FFFFFF"
-          }
-        ]
-      }
-    ],
-
-    "synchronization": [
-      {
-        "id": "synchroImages",
-        "name": "Synchronize images",
+        "id": "signOut",
+        "name": "Sign Out",
         "locale_name": {
-          "fr_FR": "Synchroniser images"
+          "fr_FR": "Se déconnecter"
         }
-      }
-    ],
-  
-    "resources": [
-      {
-        "id": "my_image.png",
-        "name": "Example image",
-        "locale_name": {
-          "fr_FR": "Image exemple"
-        },
-        "type": "Image"
       }
     ]
 }

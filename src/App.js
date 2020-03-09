@@ -1,52 +1,37 @@
 import React from 'react';
-import './App.css';
-import _ from 'lodash';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import PandaBridgeComponent, { usePandaBridge } from 'pandasuite-bridge-react';
+import IntlProvider from './IntlProvider';
+import FirebaseBridgeContext from './FirebaseBridgeContext';
+import useFirebaseWithBridge from './hooks/useFirebaseWithBridge';
+
+import * as ROUTES from './constants/routes';
+import HandleStatePage from './pages/HandleState';
+import SignUpPage from './pages/SignUp';
+import SignInPage from './pages/SignIn';
+import PasswordForgetPage from './pages/PasswordForget';
+import VerifyEmailPage from './pages/VerifyEmail';
+import HomePage from './pages/Home';
+
+import 'tabler-react/dist/Tabler.css';
+import './App.css';
 
 function App() {
-  const {
-    /* We retrieve the properties defined in the pandasuite.json file */
-    properties,
-    /* We retrieve the markers defined in the pandasuite.json file
-      but also those defined dynamically by the user when creating in the studio.
-      See ```getSnapshotDataHook``` */
-    markers,
-    /* We retrieve the resources defined in the pandasuite.json file */
-    resources,
-    /* This is the last marker that was triggered. We can retrieve its data
-      but we can also retrieve its parameters. */
-    triggeredMarker,
-  } = usePandaBridge(
-    /* Default for properties, markers, resources and triggeredMarker. */
-    {
-    },
-    /* Hooks */
-    {
-      markers: {
-        /* This method is auto-generated
-          it's called up by clicking on "Add Marker" from the studio. */
-        getSnapshotDataHook: () => ({ id: _.uniqueId() }),
-      },
-      actions: {},
-      synchronization: {},
-    },
-  );
+  const firebaseWithBridge = useFirebaseWithBridge();
 
-  /* Or you can use, instead of hooks, directly the component
-    that will work on the same principle. */
   return (
-    <div className="App">
-      <PandaBridgeComponent
-        markers={{}}
-        actions={{}}
-        synchronization={{}}
-      >
-        {({
-          properties, markers, resources, triggeredMarker,
-        }) => (<></>)}
-      </PandaBridgeComponent>
-    </div>
+    <FirebaseBridgeContext.Provider value={firebaseWithBridge}>
+      <IntlProvider>
+        <Router>
+          <Route exact path={ROUTES.LANDING} component={HandleStatePage} />
+          <Route exact path={ROUTES.SIGN_UP} component={SignUpPage} />
+          <Route exact path={ROUTES.SIGN_IN} component={SignInPage} />
+          <Route exact path={`${ROUTES.PASSWORD_FORGET}/:email?`} component={PasswordForgetPage} />
+          <Route exact path={ROUTES.VERIFY_EMAIL} component={VerifyEmailPage} />
+          <Route exact path={ROUTES.HOME} component={HomePage} />
+        </Router>
+      </IntlProvider>
+    </FirebaseBridgeContext.Provider>
   );
 }
 
