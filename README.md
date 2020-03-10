@@ -60,3 +60,9 @@ You need to retrieve information from the Firebase console to update it to the P
 On PandaSuite:
 
 ![Imgur](https://imgur.com/SnrYPFP.png)
+
+```Force authentification (hours)``` is the number of hours after identification where the session remains valid (even without an internet connection). After this number of hours, an internet connection will be required to continue. If the session is still valid, he will not need to re-login. By default, the value of 0 creates an infinite session. 
+
+```Force email verification``` is an additional step of email validation where the person receives an email with a validation web link. This step will be required before accessing the application.
+
+```Advanced user fields``` are the addition of advanced fields to the user registration.
