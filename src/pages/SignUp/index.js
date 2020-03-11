@@ -190,7 +190,7 @@ const SignUp = () => {
             <div className="col col-auto">
               {intl.formatMessage({ id: 'page.signup.form.signin.label' })}
             </div>
-            <Button link className="p-0" href="#" onClick={() => { history.push(ROUTES.SIGN_UP); }}>
+            <Button link className="p-0" href="#" onClick={() => { history.push(ROUTES.SIGN_IN); }}>
               {intl.formatMessage({ id: 'page.signup.form.signin.action' })}
             </Button>
           </div>
