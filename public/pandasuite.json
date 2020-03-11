@@ -5,12 +5,12 @@
     "properties": [
       {
         "id": "apiKey",
-        "name": "apiKey",
+        "name": "apiKey\t",
         "type": "String"
       },
       {
         "id": "projectId",
-        "name": "projectId",
+        "name": "projectId\t",
         "type": "String"
       },
       {
@@ -39,6 +39,15 @@
         },
         "type": "Boolean",
         "value": false
+      },
+      {
+        "id": "terms",
+        "name": "Show communications and usage terms",
+        "locale_name": {
+          "fr_FR": "Afficher les communications et les conditions d'utilisation"
+        },
+        "type": "Boolean",
+        "value": false
       }
     ],
   
@@ -55,6 +64,13 @@
         "name": "User Signed Out",
         "locale_name": {
           "fr_FR": "Utilisateur Déconnecté"
+        }
+      },
+      {
+        "id": "onTermsClicked",
+        "name": "Terms Clicked",
+        "locale_name": {
+          "fr_FR": "Conditions Cliquées"
         }
       }
     ],

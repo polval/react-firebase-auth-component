@@ -12,6 +12,7 @@
 
   "page.signup.form.title": "Create new account",
   "page.signup.form.button": "Create new account",
+  "page.signup.form.terms": "By signing up, you agree to our communications and usage terms",
   "page.signup.form.input.name.label": "Name",
   "page.signup.form.input.name.placeholder": "Enter Name",
   "page.signup.form.input.email.label": "Email Address",

@@ -9,6 +9,7 @@ import {
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import _ from 'lodash';
+import PandaBridge from 'pandasuite-bridge';
 
 import * as ROUTES from '../../constants/routes';
 import StandaloneFormPage from '../StandaloneFormPage';
@@ -166,6 +167,11 @@ const SignUp = () => {
           </Alert>
           )}
           <Form.Footer>
+            {(properties && properties.terms) && (
+              <Button link className="pl-0 pb-2" href="#" onClick={() => { PandaBridge.send('onTermsClicked'); }}>
+                {intl.formatMessage({ id: 'page.signup.form.terms' })}
+              </Button>
+            )}
             <Button
               type="submit"
               color="primary"

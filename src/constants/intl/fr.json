@@ -12,6 +12,7 @@
 
   "page.signup.form.title": "Créer un nouveau compte",
   "page.signup.form.button": "Créer un nouveau compte",
+  "page.signup.form.terms": "En vous inscrivant, vous acceptez nos communications et nos conditions d'utilisation",
   "page.signup.form.input.name.label": "Nom",
   "page.signup.form.input.name.placeholder": "Entrez votre nom",
   "page.signup.form.input.email.label": "Adresse électronique",
