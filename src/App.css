@@ -5,3 +5,7 @@ html, body {
 body {
   background-color: transparent;
 }
+
+button {
+  white-space: normal !important;
+}
