@@ -1,4 +1,6 @@
 {
+  "form.required": "Required",
+  
   "page.signin.form.title": "Login to your Account",
   "page.signin.form.button": "Login",
   "page.signin.form.input.email.label": "Email Address",
@@ -15,6 +17,10 @@
   "page.signup.form.terms": "By signing up, you agree to our communications and usage terms",
   "page.signup.form.input.name.label": "Name",
   "page.signup.form.input.name.placeholder": "Enter Name",
+  "page.signup.form.input.first_name.label": "First Name",
+  "page.signup.form.input.first_name.placeholder": "Enter First Name",
+  "page.signup.form.input.last_name.label": "Last Name",
+  "page.signup.form.input.last_name.placeholder": "Enter Last Name",
   "page.signup.form.input.email.label": "Email Address",
   "page.signup.form.input.email.placeholder": "Enter Email",
   "page.signup.form.input.email.error": "Invalid email address",
@@ -24,6 +30,7 @@
   "page.signup.form.input.position.placeholder": "Enter Position",
   "page.signup.form.input.company.label": "Company",
   "page.signup.form.input.company.placeholder": "Enter Company",
+  "page.signup.form.input.terms.error": "You must accept the conditions",
   "page.signup.form.signin.label": "Already have account?",
   "page.signup.form.signin.action": "Sign in",
 

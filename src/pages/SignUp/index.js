@@ -23,15 +23,23 @@ const SignUp = () => {
   const { auth, firestore, bridge } = firebaseWithBridge || {};
   const { properties } = bridge || {};
 
+  const termsValidationSchema = {
+    terms: Yup.bool()
+      .required(intl.formatMessage({ id: 'form.required' }))
+      .oneOf([true], intl.formatMessage({ id: 'page.signup.form.input.terms.error' })),
+  };
+
   const formik = useFormik({
     initialValues: {},
-    validationSchema: Yup.object({
-      name: Yup.string().required('Required'),
+    validationSchema: Yup.object(_.merge({
+      name: Yup.string()
+        .required(intl.formatMessage({ id: 'form.required' })),
       email: Yup.string()
-        .email('Invalid email address')
-        .required('Required'),
-      password: Yup.string().required('Required'),
-    }),
+        .required(intl.formatMessage({ id: 'form.required' }))
+        .email(intl.formatMessage({ id: 'page.signup.form.input.email.error' })),
+      password: Yup.string()
+        .required(intl.formatMessage({ id: 'form.required' })),
+    }, properties && properties.terms ? termsValidationSchema : {})),
     onSubmit: (values) => {
       const {
         name, email, password, position, company,
@@ -153,6 +161,28 @@ const SignUp = () => {
               </Form.Group>
             </>
           )}
+          {(properties && properties.terms) && (
+            <>
+              {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+              <label className="custom-control custom-checkbox">
+                <Form.Input
+                  type="checkbox"
+                  name="terms"
+                  value={formik.values && formik.values.terms}
+                  error={formik.errors && formik.errors.terms}
+                  disabled={formik.isSubmitting}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  isRequired
+                />
+                <span className="custom-control-label">
+                  <Button className="p-0 m-0" link href="#" onClick={() => { PandaBridge.send('onTermsClicked'); return false; }}>
+                    {intl.formatMessage({ id: 'page.signup.form.terms' })}
+                  </Button>
+                </span>
+              </label>
+            </>
+          )}
           {(formik.errors && formik.errors.global) && (
           <Alert type="danger" className="mt-6" isDismissible>
             {formik.errors.global.message}
@@ -167,11 +197,6 @@ const SignUp = () => {
           </Alert>
           )}
           <Form.Footer>
-            {(properties && properties.terms) && (
-              <Button link className="pl-0 pb-2" href="#" onClick={() => { PandaBridge.send('onTermsClicked'); }}>
-                {intl.formatMessage({ id: 'page.signup.form.terms' })}
-              </Button>
-            )}
             <Button
               type="submit"
               color="primary"

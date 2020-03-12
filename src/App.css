@@ -9,3 +9,7 @@ body {
 button {
   white-space: normal !important;
 }
+
+.custom-control-label button {
+  text-align: left;
+}
