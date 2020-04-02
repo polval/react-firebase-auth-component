@@ -47,32 +47,29 @@ const SignUp = () => {
 
       auth.createUserWithEmailAndPassword(email, password).then(() => {
         const { currentUser } = auth;
+        const fields = {
+          name,
+          email,
+        };
 
         if (properties.verifyEmail && !currentUser.emailVerified) {
           currentUser.sendEmailVerification();
         }
 
-        if (firestore) {
-          firestore.collection('users').doc(currentUser.uid).set({
-            name,
-            email,
-            position,
-            company,
-          }).then(() => {
+        if (properties.advancedFields) {
+          fields.position = position;
+          fields.company = company;
+        }
+
+        firestore
+          .collection('users')
+          .doc(currentUser.uid)
+          .set(fields).then(() => {
             formik.setSubmitting(false);
           })
-            .catch(() => {
-              formik.setSubmitting(false);
-            });
-        } else {
-          currentUser.updateProfile({
-            displayName: name,
-          }).then(() => {
-            formik.setSubmitting(false);
-          }, () => {
+          .catch(() => {
             formik.setSubmitting(false);
           });
-        }
       }).catch((error) => {
         formik.setErrors({ global: error });
         formik.setSubmitting(false);

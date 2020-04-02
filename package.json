@@ -11,7 +11,7 @@
     "formik": "^2.1.4",
     "lodash": "^4.17.15",
     "pandasuite-bridge": "^4.1.8",
-    "pandasuite-bridge-react": "^1.1.1",
+    "pandasuite-bridge-react": "^1.1.4",
     "prop-types": "^15.7.2",
     "react": "^16.13.0",
     "react-app-polyfill": "^1.0.6",

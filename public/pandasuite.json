@@ -2,6 +2,78 @@
     "version": "2.0.0",
     "main": "",
 
+    "system": {
+      "actions": [
+        {
+          "id": "toMarker",
+          "name": "Trigger Trait",
+          "locale_name": {
+            "fr_FR": "Déclencher Caractéristique"
+          },
+          "params": [
+            {
+              "id": "delete",
+              "name": "Delete user's trait",
+              "locale_name": {
+                "fr_FR": "Supprimer la caractéristique de l'utilisateur"
+              },
+              "type": "Boolean"
+            }
+          ]
+        }
+      ],
+      "events": [
+        {
+          "id": "triggerMarker",
+          "name": "Traits",
+          "locale_name": {
+            "fr_FR": "Caractéristiques"
+          }
+        }
+      ],
+      "markers": [
+        {
+          "params": [
+            {
+              "id": "trait",
+              "name": "Trait",
+              "locale_name": {
+                "fr_FR": "Caractéristique"
+              },
+              "type": "String"
+            },
+            {
+              "id": "create",
+              "name": "Trait Created",
+              "locale_name": {
+                "fr_FR": "Caractéristique créée"
+              },
+              "type": "Boolean",
+              "value": true
+            },
+            {
+              "id": "update",
+              "name": "Trait Updated",
+              "locale_name": {
+                "fr_FR": "Caractéristique mise à jour"
+              },
+              "type": "Boolean",
+              "value": false
+            },
+            {
+              "id": "delete",
+              "name": "Trait Deleted",
+              "locale_name": {
+                "fr_FR": "Caractéristique supprimée"
+              },
+              "type": "Boolean",
+              "value": false
+            }
+          ]
+        }
+      ]
+    },
+
     "properties": [
       {
         "id": "apiKey",
