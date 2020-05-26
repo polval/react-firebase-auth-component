@@ -12,6 +12,7 @@ import SignInPage from './pages/SignIn';
 import PasswordForgetPage from './pages/PasswordForget';
 import VerifyEmailPage from './pages/VerifyEmail';
 import HomePage from './pages/Home';
+import InvalidPage from './pages/Invalid';
 
 import 'tabler-react/dist/Tabler.css';
 import './App.css';
@@ -29,6 +30,7 @@ function App() {
             <Route exact path={`${ROUTES.PASSWORD_FORGET}/:email?`} component={PasswordForgetPage} />
             <Route exact path={ROUTES.VERIFY_EMAIL} component={VerifyEmailPage} />
             <Route exact path={ROUTES.HOME} component={HomePage} />
+            <Route exact path={ROUTES.INVALID_CONFIGURATION} component={InvalidPage} />
             <Route component={HandleStatePage} />
           </Switch>
         </Router>

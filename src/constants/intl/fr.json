@@ -1,6 +1,10 @@
 {
   "form.required": "Obligatoire",
 
+  "page.invalid.message": "Vous devez fournir des références Firebase valides (apiKey, projectId).",
+  "page.invalid.link.name": "En savoir plus",
+  "page.invalid.link.value": "https://github.com/pandasuite/react-firebase-auth-component/blob/master/README.md",
+  
   "page.signin.form.title": "Connectez-vous à votre compte",
   "page.signin.form.button": "Se connecter",
   "page.signin.form.input.email.label": "Email professionnel",
