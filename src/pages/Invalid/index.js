@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { useIntl } from 'react-intl';
 import { Alert } from 'tabler-react';
 
+import * as ROUTES from '../../constants/routes';
+import FirebaseBridgeContext from '../../FirebaseBridgeContext';
+
 function InvalidPage() {
   const intl = useIntl();
+  const firebaseWithBridge = useContext(FirebaseBridgeContext);
+  const history = useHistory();
+
+  if (firebaseWithBridge) {
+    history.push(ROUTES.LANDING);
+  }
 
   return (
     <Alert type="warning" icon="alert-triangle">

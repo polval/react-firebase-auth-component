@@ -62,19 +62,18 @@ function useFirebaseWithBridge() {
   }
 
   try {
-    if (!app.apps.length) {
-      app.initializeApp({
-        apiKey: properties.apiKey,
-        authDomain: properties.authDomain,
-        databaseURL: properties.databaseURL,
-        projectId: properties.projectId,
-        storageBucket: properties.storageBucket,
-        messagingSenderId: properties.messagingSenderId,
-        appId: properties.appId,
-      });
-    }
-    auth = app.auth();
-    firestore = app.firestore();
+    const newApp = app.initializeApp({
+      apiKey: properties.apiKey,
+      authDomain: properties.authDomain,
+      databaseURL: properties.databaseURL,
+      projectId: properties.projectId,
+      storageBucket: properties.storageBucket,
+      messagingSenderId: properties.messagingSenderId,
+      appId: properties.appId,
+    }, _.uniqueId());
+
+    auth = newApp.auth();
+    firestore = newApp.firestore();
   } catch (error) {
     console.log(error);
     return false;
