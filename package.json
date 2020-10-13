@@ -9,7 +9,7 @@
     "@testing-library/user-event": "^7.1.2",
     "firebase": "^7.9.3",
     "formik": "^2.1.4",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "pandasuite-bridge": "^4.2.3",
     "pandasuite-bridge-react": "^2.0.3",
     "prop-types": "^15.7.2",
