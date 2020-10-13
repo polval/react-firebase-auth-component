@@ -12,7 +12,7 @@ function useFirebaseWithBridge() {
   let firestore = null;
   let auth = null;
 
-  const { properties, markers } = usePandaBridge({}, {
+  const { properties, markers } = usePandaBridge({
     markers: {
       getSnapshotDataHook: () => ({
         trait: _.uniqueId('trait_'),

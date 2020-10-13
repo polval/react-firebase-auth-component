@@ -8669,21 +8669,22 @@ pako@~1.0.5:
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.11.tgz#6c9599d340d54dfd3946380252a35705a6b992bf"
   integrity sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==
 
-pandasuite-bridge-react@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/pandasuite-bridge-react/-/pandasuite-bridge-react-1.2.0.tgz#8653997e66d896108dd573502d0da34e49b81065"
-  integrity sha512-3ZyHSN4hL8vCoSNYudi1ejWnxg8C09vuvcjQGp1uxjCfQ22/hufvxvlLg6wMhfsGVKL6Zm6YbBtE3t6d5pLDzw==
+pandasuite-bridge-react@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/pandasuite-bridge-react/-/pandasuite-bridge-react-2.0.3.tgz#6f44929c5ad4de43ec3ceb2446b3631d97d6ed3b"
+  integrity sha512-/e3KQmN4iwZeS9ZUHeWUhWltDNlDMoqbqOrRk+6gdhcYBwNGHdYUbrsaqN1djn+nxEwlashkgRgQ4gEdsiBrog==
   dependencies:
     html2canvas "^1.0.0-rc.5"
     lodash "^4.17.15"
-    pandasuite-bridge "^4.2.0"
+    pandasuite-bridge "^4.2.3"
     prop-types "^15.7.2"
     react ">=16.8.0"
+    recoil "^0.0.10"
 
-pandasuite-bridge@^4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/pandasuite-bridge/-/pandasuite-bridge-4.2.0.tgz#bbbebaac4cb755cf298462a456df5704d7702934"
-  integrity sha512-5X2fYqhLSezTwx9ofhbcVTYeS4L1Y8mLez41p0Wn4I/bLcURPCoroRVfo8uFNS9be16r9PCK1Mt03F1KeqZBHA==
+pandasuite-bridge@^4.2.3:
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/pandasuite-bridge/-/pandasuite-bridge-4.2.3.tgz#73b27bc8339a150d243e5749053ca4b0b0b72142"
+  integrity sha512-YhJ4t0Xv+REZjgVRl56Bzch/2m/FBfwSen8RMiMumqpX3vhGINrGmr+zZuS6xE/TXTrl46tUgzWDOomnNRzsSA==
 
 parallel-transform@^1.1.0:
   version "1.2.0"
@@ -10235,6 +10236,11 @@ rechoir@^0.6.2:
   integrity sha1-hSBLVNuoLVdC4oyWdW70OvUOM4Q=
   dependencies:
     resolve "^1.1.6"
+
+recoil@^0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/recoil/-/recoil-0.0.10.tgz#679ab22306f559f8a63c46fd5ff5241539f9248f"
+  integrity sha512-+9gRqehw3yKETmoZbhSnWu4GO10HDb5xYf1CjLF1oXGK2uT6GX5Lu9mfTXwjxV/jXxEKx8MIRUUbgPxvbJ8SEw==
 
 recursive-readdir@2.2.2:
   version "2.2.2"

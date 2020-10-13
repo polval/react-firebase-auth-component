@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import { useHistory } from 'react-router-dom';
 
@@ -9,6 +9,7 @@ import {
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import _ from 'lodash';
+import PandaBridge from 'pandasuite-bridge';
 
 import * as ROUTES from '../../constants/routes';
 import StandaloneFormPage from '../StandaloneFormPage';
@@ -37,6 +38,12 @@ const SignIn = () => {
         formik.setSubmitting(false);
       });
     },
+  });
+
+  useEffect(() => {
+    if (PandaBridge.isStudio) {
+      PandaBridge.takeScreenshot();
+    }
   });
 
   return (
