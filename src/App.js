@@ -31,8 +31,8 @@ function App() {
             <Route exact path={ROUTES.VERIFY_EMAIL} component={VerifyEmailPage} />
             <Route exact path={ROUTES.HOME} component={HomePage} />
             <Route exact path={ROUTES.INVALID_CONFIGURATION} component={InvalidPage} />
-            <Route component={HandleStatePage} />
           </Switch>
+          <HandleStatePage />
         </Router>
       </IntlProvider>
     </FirebaseBridgeContext.Provider>

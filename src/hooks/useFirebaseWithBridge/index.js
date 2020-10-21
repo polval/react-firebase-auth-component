@@ -7,11 +7,12 @@ import { usePandaBridge } from 'pandasuite-bridge-react';
 import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import { useMemo } from 'react';
+
+let firestore = null;
+let auth = null;
 
 function useFirebaseWithBridge() {
-  let firestore = null;
-  let auth = null;
-
   const { properties, markers } = usePandaBridge({
     markers: {
       getSnapshotDataHook: () => ({
@@ -53,29 +54,38 @@ function useFirebaseWithBridge() {
     },
   });
 
-  if (properties === undefined) {
+  [auth, firestore] = useMemo(() => {
+    if (properties === undefined) {
+      return [null];
+    }
+
+    if (PandaBridge.isStudio && _.isEmpty(properties)) {
+      return [false];
+    }
+
+    try {
+      const newApp = app.initializeApp({
+        apiKey: properties.apiKey,
+        authDomain: properties.authDomain,
+        databaseURL: properties.databaseURL,
+        projectId: properties.projectId,
+        storageBucket: properties.storageBucket,
+        messagingSenderId: properties.messagingSenderId,
+        appId: properties.appId,
+      }, _.uniqueId());
+
+      return [newApp.auth(), newApp.firestore()];
+    } catch (error) {
+      console.log(error);
+    }
+    return [false];
+  }, [properties]);
+
+  if (auth === null) {
     return null; /* Loading */
   }
 
-  if (PandaBridge.isStudio && _.isEmpty(properties)) {
-    return false;
-  }
-
-  try {
-    const newApp = app.initializeApp({
-      apiKey: properties.apiKey,
-      authDomain: properties.authDomain,
-      databaseURL: properties.databaseURL,
-      projectId: properties.projectId,
-      storageBucket: properties.storageBucket,
-      messagingSenderId: properties.messagingSenderId,
-      appId: properties.appId,
-    }, _.uniqueId());
-
-    auth = newApp.auth();
-    firestore = newApp.firestore();
-  } catch (error) {
-    console.log(error);
+  if (auth === false) {
     return false;
   }
 

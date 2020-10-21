@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
 import PandaBridge from 'pandasuite-bridge';
 import _ from 'lodash';
@@ -11,55 +11,63 @@ function HandleStatePage() {
   const history = useHistory();
   const firebaseWithBridge = useContext(FirebaseBridgeContext);
 
-  if (firebaseWithBridge === null) {
-    return null;
-  }
+  return useMemo(() => {
+    if (firebaseWithBridge === null) {
+      return null;
+    }
 
-  if (firebaseWithBridge === false) {
-    return (<Redirect to={ROUTES.INVALID_CONFIGURATION} />);
-  }
+    if (firebaseWithBridge === false) {
+      return (<Redirect to={ROUTES.INVALID_CONFIGURATION} />);
+    }
 
-  const { auth, bridge } = firebaseWithBridge;
+    const { auth, bridge } = firebaseWithBridge;
 
-  auth.onAuthStateChanged((user) => {
-    if (user) {
-      const { properties } = bridge || {};
-
-      if (properties.verifyEmail && !user.emailVerified) {
-        history.push(ROUTES.VERIFY_EMAIL);
-        return null;
+    const safePush = (path) => {
+      if (history.location.pathname !== path) {
+        history.push(path);
       }
-      if (properties.forceAuthenticationAfter > 0) {
-        const { metadata } = user;
-        const hoursSinceTheLastSignIn = (
-          Date.now() - Date.parse(metadata.lastSignInTime)
-        ) / 1000 / 60 / 60;
+    };
 
-        if (hoursSinceTheLastSignIn > properties.forceAuthenticationAfter) {
-          user.reload().then(() => {
-            history.push(ROUTES.HOME);
-          }).catch(() => {
-            auth.signOut();
-          });
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        const { properties } = bridge || {};
+
+        if (properties.verifyEmail && !user.emailVerified) {
+          safePush(ROUTES.VERIFY_EMAIL);
           return null;
         }
-      }
-      history.push(ROUTES.HOME);
-    } else {
-      const { markers } = bridge || {};
+        if (properties.forceAuthenticationAfter > 0) {
+          const { metadata } = user;
+          const hoursSinceTheLastSignIn = (
+            Date.now() - Date.parse(metadata.lastSignInTime)
+          ) / 1000 / 60 / 60;
 
-      _.each(markers || [], (marker) => {
-        if (marker.delete) {
-          PandaBridge.send('triggerMarker', marker.id);
+          if (hoursSinceTheLastSignIn > properties.forceAuthenticationAfter) {
+            user.reload().then(() => {
+              safePush(ROUTES.HOME);
+            }).catch(() => {
+              auth.signOut();
+            });
+            return null;
+          }
         }
-      });
-      PandaBridge.send('onSignedOut');
-      history.push(ROUTES.SIGN_IN);
-    }
-    return null;
-  });
+        safePush(ROUTES.HOME);
+      } else {
+        const { markers } = bridge || {};
 
-  return null;
+        _.each(markers || [], (marker) => {
+          if (marker.delete) {
+            PandaBridge.send('triggerMarker', marker.id);
+          }
+        });
+        PandaBridge.send('onSignedOut');
+        safePush(ROUTES.SIGN_IN);
+      }
+      return null;
+    });
+
+    return null;
+  }, [firebaseWithBridge, history]);
 }
 
 export default HandleStatePage;
