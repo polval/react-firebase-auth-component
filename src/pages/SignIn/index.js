@@ -20,6 +20,9 @@ const SignIn = () => {
   const intl = useIntl();
   const history = useHistory();
 
+  const { bridge } = firebaseWithBridge || {};
+  const { properties } = bridge || {};
+
   const formik = useFormik({
     initialValues: {},
     validationSchema: Yup.object({
@@ -101,6 +104,7 @@ const SignIn = () => {
               {intl.formatMessage({ id: 'page.signin.form.button' })}
             </Button>
           </Form.Footer>
+          {properties && properties.registration && (
           <div className="row row gutters-xs align-items-center mt-5">
             <div className="col col-auto">
               {intl.formatMessage({ id: 'page.signin.form.signup.label' })}
@@ -109,6 +113,7 @@ const SignIn = () => {
               {intl.formatMessage({ id: 'page.signin.form.signup.action' })}
             </Button>
           </div>
+          )}
         </Card.Body>
       </Form>
     </StandaloneFormPage>

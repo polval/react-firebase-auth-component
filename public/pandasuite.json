@@ -120,6 +120,15 @@
         },
         "type": "Boolean",
         "value": false
+      },
+      {
+        "id": "registration",
+        "name": "Allow registration",
+        "locale_name": {
+          "fr_FR": "Autoriser l'inscription"
+        },
+        "type": "Boolean",
+        "value": true
       }
     ],
   
