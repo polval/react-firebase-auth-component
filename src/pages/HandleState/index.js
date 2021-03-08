@@ -1,7 +1,6 @@
 import React, { useContext, useMemo } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
 import PandaBridge from 'pandasuite-bridge';
-import _ from 'lodash';
 
 import * as ROUTES from '../../constants/routes';
 
@@ -53,12 +52,8 @@ function HandleStatePage() {
         }
         safePush(ROUTES.HOME);
       } else {
-        const { markers } = bridge || {};
-
-        _.each(markers || [], (marker) => {
-          if (marker.delete) {
-            PandaBridge.send('triggerMarker', marker.id);
-          }
+        PandaBridge.send(PandaBridge.UPDATED, {
+          queryable: {},
         });
         PandaBridge.send('onSignedOut');
         safePush(ROUTES.SIGN_IN);

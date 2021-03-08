@@ -2,78 +2,6 @@
     "version": "2.0.0",
     "main": "",
 
-    "system": {
-      "actions": [
-        {
-          "id": "toMarker",
-          "name": "Trigger Trait",
-          "locale_name": {
-            "fr_FR": "Déclencher Caractéristique"
-          },
-          "params": [
-            {
-              "id": "delete",
-              "name": "Delete user's trait",
-              "locale_name": {
-                "fr_FR": "Supprimer la caractéristique de l'utilisateur"
-              },
-              "type": "Boolean"
-            }
-          ]
-        }
-      ],
-      "events": [
-        {
-          "id": "triggerMarker",
-          "name": "Traits",
-          "locale_name": {
-            "fr_FR": "Caractéristiques"
-          }
-        }
-      ],
-      "markers": [
-        {
-          "params": [
-            {
-              "id": "trait",
-              "name": "Trait",
-              "locale_name": {
-                "fr_FR": "Caractéristique"
-              },
-              "type": "String"
-            },
-            {
-              "id": "create",
-              "name": "Trait Created",
-              "locale_name": {
-                "fr_FR": "Caractéristique créée"
-              },
-              "type": "Boolean",
-              "value": true
-            },
-            {
-              "id": "update",
-              "name": "Trait Updated",
-              "locale_name": {
-                "fr_FR": "Caractéristique mise à jour"
-              },
-              "type": "Boolean",
-              "value": false
-            },
-            {
-              "id": "delete",
-              "name": "Trait Deleted",
-              "locale_name": {
-                "fr_FR": "Caractéristique supprimée"
-              },
-              "type": "Boolean",
-              "value": false
-            }
-          ]
-        }
-      ]
-    },
-
     "properties": [
       {
         "id": "apiKey",
@@ -163,6 +91,93 @@
         "locale_name": {
           "fr_FR": "Se déconnecter"
         }
+      },
+      {
+        "id": "change",
+        "name": "Modify the data",
+        "locale_name": {
+          "fr_FR": "Modifier la donnée"
+        },
+        "params": [
+          {
+            "id": "data",
+            "name": "Data",
+            "locale_name": {
+              "fr_FR": "Donnée"
+            },
+            "type": "String",
+            "bindable": true
+          },
+          {
+            "id": "function",
+            "name": "Function",
+            "locale_name": {
+              "fr_FR": "Fonction"
+            },
+            "value": "set",
+            "type": "Dropdown",
+            "items": [
+              {
+                "id": "set",
+                "name": "Set",
+                "locale_name": {
+                  "fr_FR": "Définir"
+                }    
+              },
+              {
+                "id": "inc",
+                "name": "Increment",
+                "locale_name": {
+                  "fr_FR": "Incrémenter"
+                }    
+              },
+              {
+                "id": "dec",
+                "name": "Decrement",
+                "locale_name": {
+                  "fr_FR": "Décrémenter"
+                }    
+              },
+              {
+                "id": "add",
+                "name": "Add",
+                "locale_name": {
+                  "fr_FR": "Ajouter"
+                }    
+              },
+              {
+                "id": "del",
+                "name": "Delete",
+                "locale_name": {
+                  "fr_FR": "Supprimer"
+                }    
+              },
+              {
+                "id": "delbyid",
+                "name": "Delete by id",
+                "locale_name": {
+                  "fr_FR": "Supprimer par id"
+                }    
+              },
+              {
+                "id": "delbyvalue",
+                "name": "Delete by value",
+                "locale_name": {
+                  "fr_FR": "Supprimer par valeur"
+                }    
+              }
+            ]
+          },
+          {
+            "id": "value",
+            "name": "Value",
+            "locale_name": {
+              "fr_FR": "Valeur"
+            },
+            "type": "String",
+            "bindable": true
+          }
+        ]
       }
     ]
 }

@@ -13,12 +13,14 @@ let firestore = null;
 let auth = null;
 
 function useFirebaseWithBridge() {
-  const { properties, markers } = usePandaBridge({
-    markers: {
-      getSnapshotDataHook: () => ({
-        trait: _.uniqueId('trait_'),
-      }),
-      setSnapshotDataHook: (snapshot) => {
+  const { properties } = usePandaBridge({
+    actions: {
+      signOut: () => {
+        if (auth) {
+          auth.signOut();
+        }
+      },
+      change: ({ data, function: func, value }) => {
         const { currentUser } = auth;
 
         if (currentUser) {
@@ -27,28 +29,32 @@ function useFirebaseWithBridge() {
           firestore.runTransaction((transaction) => transaction.get(userDocRef).then((userDoc) => {
             if (userDoc.exists) {
               const update = {};
+              const key = _.compact(data.split('/')).join('.');
+              let fieldValue = value;
 
-              if (snapshot.params.delete) {
-                update[`traits.${snapshot.data.trait}`] = app.firestore.FieldValue.delete();
-              } else {
-                const traits = userDoc.data().traits || {};
-                const newTraitCount = ((traits[snapshot.data.trait] || {}).count || 0) + 1;
-
-                update[`traits.${snapshot.data.trait}`] = {
-                  count: newTraitCount,
-                  timestamp: app.firestore.FieldValue.serverTimestamp(),
-                };
+              if (func === 'inc') {
+                fieldValue = app.firestore.FieldValue.increment(parseInt(value));
+              } else if (func === 'dec') {
+                fieldValue = app.firestore.FieldValue.increment(-parseInt(value));
+              } else if (func === 'del') {
+                fieldValue = app.firestore.FieldValue.delete();
+              } else if (func === 'add') {
+                fieldValue = app.firestore.FieldValue.arrayUnion(value);
+              } else if (func === 'delbyid') {
+                const doc = _.find(_.get(userDoc.data(), key), (row) => {
+                  return row.id === value;
+                });
+                if (!doc) {
+                  return;
+                }
+                fieldValue = app.firestore.FieldValue.arrayRemove(doc);
+              } else if (func === 'delbyvalue') {
+                fieldValue = app.firestore.FieldValue.arrayRemove(value);
               }
+              update[key] = fieldValue;
               transaction.update(userDocRef, update);
             }
           }));
-        }
-      },
-    },
-    actions: {
-      signOut: () => {
-        if (auth) {
-          auth.signOut();
         }
       },
     },
@@ -74,6 +80,8 @@ function useFirebaseWithBridge() {
         appId: properties.appId,
       }, _.uniqueId());
 
+      newApp.firestore().enablePersistence();
+
       return [newApp.auth(), newApp.firestore()];
     } catch (error) {
       console.log(error);
@@ -89,7 +97,7 @@ function useFirebaseWithBridge() {
     return false;
   }
 
-  return { auth, firestore, bridge: { properties, markers } };
+  return { auth, firestore, bridge: { properties } };
 }
 
 export default useFirebaseWithBridge;
