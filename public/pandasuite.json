@@ -57,6 +57,22 @@
         },
         "type": "Boolean",
         "value": true
+      },
+      {
+        "id": "styles",
+        "name": "CSS Styles",
+        "locale_name": {
+          "fr_FR": "Styles CSS"
+        },
+        "type": "Code",
+        "language": "css",
+        "options": {
+          "minimap": {
+            "enabled": false
+          }
+        },
+        "bindable": true,
+        "value": ""
       }
     ],
   

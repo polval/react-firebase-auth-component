@@ -19,7 +19,15 @@ import './App.css';
 
 function App() {
   const firebaseWithBridge = useFirebaseWithBridge();
+  const { bridge } = firebaseWithBridge || {};
+  const { properties } = bridge || {};
+  const { styles } = properties || {};
 
+  if (styles) {
+    const style = document.createElement('style');
+    style.textContent = styles;
+    document.head.append(style);
+  }
   return (
     <FirebaseBridgeContext.Provider value={firebaseWithBridge}>
       <IntlProvider>
