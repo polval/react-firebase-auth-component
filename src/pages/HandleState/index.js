@@ -57,7 +57,9 @@ function HandleStatePage() {
           queryable: {},
         });
         PandaBridge.send('onSignedOut');
-        if (location.pathname !== ROUTES.SIGN_IN && location.pathname !== ROUTES.SIGN_UP) {
+        if (location.pathname !== ROUTES.SIGN_IN
+          && location.pathname !== ROUTES.SIGN_UP
+          && !location.pathname.startsWith(ROUTES.PASSWORD_FORGET)) {
           safePush(ROUTES.SIGN_IN);
         }
       }
