@@ -57,8 +57,12 @@ const SignUp = () => {
         }
 
         if (properties.advancedFields) {
-          fields.position = position;
-          fields.company = company;
+          if (position) {
+            fields.position = position;
+          }
+          if (company) {
+            fields.company = company;
+          }
         }
 
         firestore
