@@ -3,7 +3,6 @@ import _ from 'lodash';
 import PandaBridge from 'pandasuite-bridge';
 import { usePandaBridge } from 'pandasuite-bridge-react';
 
-// import app from 'firebase';
 import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
@@ -11,6 +10,40 @@ import { useMemo } from 'react';
 
 let firestore = null;
 let auth = null;
+
+const changeData = ({
+  user, data, func, value,
+}) => {
+  const userDocRef = firestore.collection('users').doc(user.uid);
+
+  firestore.runTransaction((transaction) => transaction.get(userDocRef).then((userDoc) => {
+    if (userDoc.exists) {
+      const update = {};
+      const key = _.compact(data.split('/')).join('.');
+      let fieldValue = value;
+
+      if (func === 'inc') {
+        fieldValue = app.firestore.FieldValue.increment(parseInt(value));
+      } else if (func === 'dec') {
+        fieldValue = app.firestore.FieldValue.increment(-parseInt(value));
+      } else if (func === 'del') {
+        fieldValue = app.firestore.FieldValue.delete();
+      } else if (func === 'add') {
+        fieldValue = app.firestore.FieldValue.arrayUnion(value);
+      } else if (func === 'delbyid') {
+        const doc = _.find(_.get(userDoc.data(), key), (row) => row.id === value);
+        if (!doc) {
+          return;
+        }
+        fieldValue = app.firestore.FieldValue.arrayRemove(doc);
+      } else if (func === 'delbyvalue') {
+        fieldValue = app.firestore.FieldValue.arrayRemove(value);
+      }
+      update[key] = fieldValue;
+      transaction.update(userDocRef, update);
+    }
+  }));
+};
 
 function useFirebaseWithBridge() {
   const { properties } = usePandaBridge({
@@ -24,37 +57,16 @@ function useFirebaseWithBridge() {
         const { currentUser } = auth;
 
         if (currentUser) {
-          const userDocRef = firestore.collection('users').doc(currentUser.uid);
-
-          firestore.runTransaction((transaction) => transaction.get(userDocRef).then((userDoc) => {
-            if (userDoc.exists) {
-              const update = {};
-              const key = _.compact(data.split('/')).join('.');
-              let fieldValue = value;
-
-              if (func === 'inc') {
-                fieldValue = app.firestore.FieldValue.increment(parseInt(value));
-              } else if (func === 'dec') {
-                fieldValue = app.firestore.FieldValue.increment(-parseInt(value));
-              } else if (func === 'del') {
-                fieldValue = app.firestore.FieldValue.delete();
-              } else if (func === 'add') {
-                fieldValue = app.firestore.FieldValue.arrayUnion(value);
-              } else if (func === 'delbyid') {
-                const doc = _.find(_.get(userDoc.data(), key), (row) => {
-                  return row.id === value;
-                });
-                if (!doc) {
-                  return;
-                }
-                fieldValue = app.firestore.FieldValue.arrayRemove(doc);
-              } else if (func === 'delbyvalue') {
-                fieldValue = app.firestore.FieldValue.arrayRemove(value);
-              }
-              update[key] = fieldValue;
-              transaction.update(userDocRef, update);
-            }
-          }));
+          changeData({
+            user: currentUser, data, func, value,
+          });
+        } else {
+          const unsubscribe = auth.onAuthStateChanged((user) => {
+            unsubscribe();
+            changeData({
+              user, data, func, value,
+            });
+          });
         }
       },
     },
