@@ -117,12 +117,12 @@
         "params": [
           {
             "id": "data",
-            "name": "Data",
+            "name": "Target",
             "locale_name": {
-              "fr_FR": "Donnée"
+              "fr_FR": "Cible"
             },
             "type": "String",
-            "bindable": true
+            "style": "Explorer"
           },
           {
             "id": "function",
