@@ -62,10 +62,12 @@ function useFirebaseWithBridge() {
           });
         } else {
           const unsubscribe = auth.onAuthStateChanged((user) => {
-            unsubscribe();
-            changeData({
-              user, data, func, value,
-            });
+            if (user) {
+              unsubscribe();
+              changeData({
+                user, data, func, value,
+              });
+            }
           });
         }
       },
