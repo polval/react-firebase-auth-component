@@ -42,7 +42,9 @@ const changeData = ({
       update[key] = fieldValue;
       transaction.update(userDocRef, update);
     }
-  }));
+  })).catch((error) => {
+    console.log(error);
+  });
 };
 
 function useFirebaseWithBridge() {

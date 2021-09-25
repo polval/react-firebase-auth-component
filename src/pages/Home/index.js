@@ -8,7 +8,7 @@ const Home = () => {
   const { firestore, auth } = firebaseWithBridge || {};
 
   useEffect(() => {
-    const unsubscribe = auth.currentUser && firestore
+    const unsubscribe = auth && auth.currentUser && firestore
       .collection('users')
       .doc(auth.currentUser.uid)
       .onSnapshot((snapshot) => {
@@ -27,7 +27,7 @@ const Home = () => {
   // eslint-disable-next-line
   }, []);
 
-  if (auth.currentUser) {
+  if (auth && auth.currentUser) {
     PandaBridge.send('onSignedIn');
   }
   return (<></>);
