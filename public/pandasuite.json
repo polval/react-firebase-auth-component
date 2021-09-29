@@ -5,12 +5,18 @@
     "properties": [
       {
         "id": "apiKey",
-        "name": "apiKey\t",
+        "name": "API Key",
+        "locale_name": {
+          "fr_FR": "Clé API"
+        },
         "type": "String"
       },
       {
         "id": "projectId",
-        "name": "projectId\t",
+        "name": "Project ID",
+        "locale_name": {
+          "fr_FR": "ID de projet"
+        },
         "type": "String"
       },
       {
@@ -42,9 +48,9 @@
       },
       {
         "id": "terms",
-        "name": "Show communications and usage terms",
+        "name": "Communications and usage terms",
         "locale_name": {
-          "fr_FR": "Afficher les communications et les conditions d'utilisation"
+          "fr_FR": "Communications et conditions d'utilisation"
         },
         "type": "Boolean",
         "value": false
