@@ -196,7 +196,7 @@
             "locale_name": {
               "fr_FR": "Valeur"
             },
-            "type": "String",
+            "type": "JSON",
             "bindable": true
           }
         ]

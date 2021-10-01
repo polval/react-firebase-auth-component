@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 import _ from 'lodash';
 
 import PandaBridge from 'pandasuite-bridge';
@@ -8,8 +9,44 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import { useMemo } from 'react';
 
+import JSONPointer from '@beingenious/jsonpointer';
+
 let firestore = null;
 let auth = null;
+
+const getPointer = (schema, pointer) => {
+  let resolvedPointer = [];
+
+  const value = JSONPointer.resolvePointer(
+    schema,
+    JSONPointer.getPointerByJSONPointer(pointer),
+    {
+      unitPool: {
+        language: navigator.language.replace('-', '_'),
+      },
+    }, undefined, undefined, resolvedPointer,
+  );
+
+  if (!value) {
+    resolvedPointer = _.compact(pointer.replace(/@[^:]+:/g, '').split('/'));
+  }
+  return resolvedPointer;
+};
+
+const getDocumentFromPointer = (userData, pointer, value) => {
+  const update = {};
+  const index = _.findIndex(pointer, (key) => _.isNumber(key));
+
+  if (index !== -1) {
+    const path = pointer.slice(0, index).join('.');
+
+    update[path] = _.get(userData, path);
+    _.set(update[path], pointer.slice(index).join('.'), value);
+  } else {
+    update[pointer.join('.')] = value;
+  }
+  return update;
+};
 
 const changeData = ({
   user, data, func, value,
@@ -18,8 +55,9 @@ const changeData = ({
 
   firestore.runTransaction((transaction) => transaction.get(userDocRef).then((userDoc) => {
     if (userDoc.exists) {
-      const update = {};
-      const key = _.compact(data.split('/')).join('.');
+      const userData = userDoc.data();
+      const pointer = getPointer(userData, data);
+
       let fieldValue = value;
 
       if (func === 'inc') {
@@ -31,7 +69,7 @@ const changeData = ({
       } else if (func === 'add') {
         fieldValue = app.firestore.FieldValue.arrayUnion(value);
       } else if (func === 'delbyid') {
-        const doc = _.find(_.get(userDoc.data(), key), (row) => row.id === value);
+        const doc = _.find(_.get(userData, pointer.join('.')), (row) => row.id === value);
         if (!doc) {
           return;
         }
@@ -39,10 +77,10 @@ const changeData = ({
       } else if (func === 'delbyvalue') {
         fieldValue = app.firestore.FieldValue.arrayRemove(value);
       }
-      update[key] = fieldValue;
-      transaction.update(userDocRef, update);
+      transaction.update(userDocRef, getDocumentFromPointer(userData, pointer, fieldValue));
     }
   })).catch((error) => {
+    // eslint-disable-next-line no-console
     console.log(error);
   });
 };
@@ -100,6 +138,7 @@ function useFirebaseWithBridge() {
 
       return [newApp.auth(), newApp.firestore()];
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log(error);
     }
     return [false];
