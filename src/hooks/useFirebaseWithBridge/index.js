@@ -55,6 +55,9 @@ function useFirebaseWithBridge() {
           auth.signOut();
         }
       },
+      reload: () => {
+        window.location.reload();
+      },
       change: ({ data, function: func, value }) => {
         const { currentUser } = auth;
 
