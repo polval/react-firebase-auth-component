@@ -1,15 +1,18 @@
 import React from 'react';
 import { IntlProvider as NativeIntlProvider } from 'react-intl';
+import startsWith from 'lodash/startsWith';
 
 import messagesEn from '../constants/intl/en.json';
 import messagesFr from '../constants/intl/fr.json';
 
 const IntlProvider = (props) => {
   // eslint-disable-next-line react/prop-types
-  const { children } = props;
-  let locale = navigator.language.substring(0, 2);
+  const { children, language } = props;
+  let locale = language || navigator.language.substring(0, 2);
 
-  if (locale !== 'fr') {
+  if (startsWith(locale, 'fr')) {
+    locale = 'fr';
+  } else {
     locale = 'en';
   }
   const localizedMessages = {

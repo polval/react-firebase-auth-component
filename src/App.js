@@ -1,5 +1,6 @@
 import React from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import PandaBridge from 'pandasuite-bridge';
 
 import IntlProvider from './IntlProvider';
 import FirebaseBridgeContext from './FirebaseBridgeContext';
@@ -21,7 +22,7 @@ function App() {
   const firebaseWithBridge = useFirebaseWithBridge();
   const { bridge } = firebaseWithBridge || {};
   const { properties } = bridge || {};
-  const { styles } = properties || {};
+  const { styles, [PandaBridge.LANGUAGE]: language } = properties || {};
 
   if (styles) {
     const style = document.createElement('style');
@@ -30,7 +31,7 @@ function App() {
   }
   return (
     <FirebaseBridgeContext.Provider value={firebaseWithBridge}>
-      <IntlProvider>
+      <IntlProvider language={language}>
         <Router>
           <Switch>
             <Route exact path={ROUTES.SIGN_UP} component={SignUpPage} />

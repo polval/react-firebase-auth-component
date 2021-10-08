@@ -12,7 +12,9 @@ function InvalidPage() {
   const firebaseWithBridge = useContext(FirebaseBridgeContext);
   const history = useHistory();
 
-  if (firebaseWithBridge) {
+  const { auth = false } = firebaseWithBridge || {};
+
+  if (auth) {
     history.push(ROUTES.LANDING);
   }
 

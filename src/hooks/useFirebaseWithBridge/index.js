@@ -149,7 +149,7 @@ function useFirebaseWithBridge() {
   }
 
   if (auth === false) {
-    return false;
+    return { auth, bridge: { properties } };
   }
 
   return { auth, firestore, bridge: { properties } };

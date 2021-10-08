@@ -16,11 +16,11 @@ function HandleStatePage() {
       return null;
     }
 
-    if (firebaseWithBridge === false) {
+    const { auth, bridge } = firebaseWithBridge;
+
+    if (auth === false) {
       return (<Redirect to={ROUTES.INVALID_CONFIGURATION} />);
     }
-
-    const { auth, bridge } = firebaseWithBridge;
 
     const safePush = (path) => {
       if (history.location.pathname !== path) {
