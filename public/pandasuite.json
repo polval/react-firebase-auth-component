@@ -201,6 +201,23 @@
           }
         ]
       }
-    ]
+    ],
+
+    "queryable": {
+      "name": "",
+      "__desc_name": {
+        "name": "Name",
+        "locale_name": {
+          "fr_FR": "Nom"
+        }
+      },
+      "email": "",
+      "__desc_email": {
+        "name": "Email",
+        "locale_name": {
+          "fr_FR": "Email"
+        }
+      }
+    }
 }
   
