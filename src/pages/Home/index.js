@@ -7,16 +7,19 @@ const Home = () => {
   const firebaseWithBridge = useContext(FirebaseBridgeContext);
   const { firestore, auth } = firebaseWithBridge || {};
 
+  const currentUser = auth && auth.currentUser;
+
   useEffect(() => {
-    const unsubscribe = auth && auth.currentUser && firestore
+    const unsubscribe = currentUser && firestore
       .collection('users')
-      .doc(auth.currentUser.uid)
+      .doc(currentUser.uid)
       .onSnapshot((snapshot) => {
         const data = snapshot.data();
 
         PandaBridge.send(PandaBridge.UPDATED, {
-          queryable: { ...data, id: auth.currentUser.uid },
+          queryable: { ...data, id: currentUser.uid },
         });
+        PandaBridge.send('onSignedIn');
       });
 
     return function cleanup() {
@@ -24,12 +27,7 @@ const Home = () => {
         unsubscribe();
       }
     };
-  // eslint-disable-next-line
-  }, []);
-
-  if (auth && auth.currentUser) {
-    PandaBridge.send('onSignedIn');
-  }
+  }, [currentUser, firestore]);
   return (<></>);
 };
 
