@@ -136,7 +136,7 @@ function useFirebaseWithBridge() {
         appId: mergeProperties.appId,
       }, _.uniqueId());
 
-      newApp.firestore().enablePersistence();
+      newApp.firestore().enablePersistence({ synchronizeTabs: true });
 
       return [newApp.auth(), newApp.firestore()];
     } catch (error) {
