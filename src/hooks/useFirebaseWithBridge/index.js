@@ -123,15 +123,17 @@ function useFirebaseWithBridge() {
       return [false];
     }
 
+    const mergeProperties = _.merge({}, properties, (properties.session || {}).properties);
+
     try {
       const newApp = app.initializeApp({
-        apiKey: properties.apiKey,
-        authDomain: properties.authDomain,
-        databaseURL: properties.databaseURL,
-        projectId: properties.projectId,
-        storageBucket: properties.storageBucket,
-        messagingSenderId: properties.messagingSenderId,
-        appId: properties.appId,
+        apiKey: mergeProperties.apiKey,
+        authDomain: mergeProperties.authDomain,
+        databaseURL: mergeProperties.databaseURL,
+        projectId: mergeProperties.projectId,
+        storageBucket: mergeProperties.storageBucket,
+        messagingSenderId: mergeProperties.messagingSenderId,
+        appId: mergeProperties.appId,
       }, _.uniqueId());
 
       newApp.firestore().enablePersistence();
