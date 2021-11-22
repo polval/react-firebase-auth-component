@@ -1,5 +1,5 @@
 import React, { useContext, useMemo } from 'react';
-import { useHistory, Redirect, useLocation } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import PandaBridge from 'pandasuite-bridge';
 
 import * as ROUTES from '../../constants/routes';
@@ -8,7 +8,6 @@ import FirebaseBridgeContext from '../../FirebaseBridgeContext';
 
 function HandleStatePage() {
   const history = useHistory();
-  const location = useLocation();
   const firebaseWithBridge = useContext(FirebaseBridgeContext);
 
   return useMemo(() => {
@@ -57,9 +56,9 @@ function HandleStatePage() {
           queryable: {},
         });
         PandaBridge.send('onSignedOut');
-        if (location.pathname !== ROUTES.SIGN_IN
-          && location.pathname !== ROUTES.SIGN_UP
-          && !location.pathname.startsWith(ROUTES.PASSWORD_FORGET)) {
+        if (history.location.pathname !== ROUTES.SIGN_IN
+          && history.location.pathname !== ROUTES.SIGN_UP
+          && !history.location.pathname.startsWith(ROUTES.PASSWORD_FORGET)) {
           safePush(ROUTES.SIGN_IN);
         }
       }
@@ -67,7 +66,7 @@ function HandleStatePage() {
     });
 
     return null;
-  }, [firebaseWithBridge, history, location]);
+  }, [firebaseWithBridge, history]);
 }
 
 export default HandleStatePage;
