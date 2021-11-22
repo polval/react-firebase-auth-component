@@ -1,0 +1,82 @@
+{
+  "version": "2.0.0",
+  "main": "",
+
+  "properties": [
+    {
+      "id": "session",
+      "name": "Session",
+      "locale_name": {
+        "fr_FR": "Session"
+      },
+      "type": "Selection",
+      "restrict": {
+        "types": ["https://github.com/pandasuite/react-firebase-auth-component/tree/session"],
+        "number": 1
+      },
+      "required": true
+    },
+    {
+      "id": "verifyEmail",
+      "name": "Force email verification",
+      "locale_name": {
+        "fr_FR": "Forcer la vérification d'email"
+      },
+      "type": "Boolean",
+      "value": false
+    },
+    {
+      "id": "advancedFields",
+      "name": "Advanced user fields",
+      "locale_name": {
+        "fr_FR": "Champs utilisateurs avancés"
+      },
+      "type": "Boolean",
+      "value": false
+    },
+    {
+      "id": "terms",
+      "name": "Communications and usage terms",
+      "locale_name": {
+        "fr_FR": "Communications et conditions d'utilisation"
+      },
+      "type": "Boolean",
+      "value": false
+    },
+    {
+      "id": "registration",
+      "name": "Allow registration",
+      "locale_name": {
+        "fr_FR": "Autoriser l'inscription"
+      },
+      "type": "Boolean",
+      "value": true
+    },
+    {
+      "id": "styles",
+      "name": "CSS Styles",
+      "locale_name": {
+        "fr_FR": "Styles CSS"
+      },
+      "type": "Code",
+      "language": "css",
+      "options": {
+        "minimap": {
+          "enabled": false
+        }
+      },
+      "bindable": true,
+      "value": ""
+    }
+  ],
+
+  "events": [
+    {
+      "id": "onTermsClicked",
+      "name": "Terms Clicked",
+      "locale_name": {
+        "fr_FR": "Conditions Cliquées"
+      }
+    }
+  ]
+}

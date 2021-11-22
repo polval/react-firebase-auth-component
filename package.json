@@ -25,7 +25,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "rm -rf build && rm -f pandasuite-component.zip && react-scripts build && cd build && zip -r -X '../pandasuite-component.zip' *",
+    "package-session": "cd src/json/session && zip -ur ../../../pandasuite-component.zip pandasuite.json && cp ../../../pandasuite-component.zip ../../../pandasuite-session-component.zip",
+    "package-auth": "cd src/json/auth && zip -ur ../../../pandasuite-component.zip pandasuite.json && cp ../../../pandasuite-component.zip ../../../pandasuite-auth-component.zip",
+    "build-generic": "react-scripts build && cd build && zip -r -X '../pandasuite-component.zip' *",
+    "build": "yarn clean && yarn build-generic && yarn package-auth && yarn package-session",
+    "clean": "rm -rf build && rm -f pandasuite-component.zip && rm -f pandasuite-auth-component.zip && rm -f pandasuite-session-component.zip",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "release": "yarn build && release-it --no-npm.publish"
@@ -61,7 +65,8 @@
     "github": {
       "release": true,
       "assets": [
-        "pandasuite-component.zip"
+        "pandasuite-auth-component.zip",
+        "pandasuite-session-component.zip"
       ]
     }
   }

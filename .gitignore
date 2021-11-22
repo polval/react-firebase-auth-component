@@ -23,3 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 /.vscode
 /pandasuite-component.zip
+/pandasuite-session-component.zip
+/pandasuite-auth-component.zip

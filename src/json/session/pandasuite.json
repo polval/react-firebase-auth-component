@@ -1,0 +1,166 @@
+{
+  "version": "2.0.0",
+  "main": "",
+
+  "properties": [
+    {
+      "id": "apiKey",
+      "name": "API Key",
+      "locale_name": {
+        "fr_FR": "Clé API"
+      },
+      "type": "String",
+      "required": true
+    },
+    {
+      "id": "projectId",
+      "name": "Project ID",
+      "locale_name": {
+        "fr_FR": "ID de projet"
+      },
+      "type": "String",
+      "required": true
+    },
+    {
+      "id": "forceAuthenticationAfter",
+      "name": "Force authentication after (hours)",
+      "locale_name": {
+        "fr_FR": "Forcer l'authentification après (heures)"
+      },
+      "type": "Integer",
+      "value": 0
+    }
+  ],
+
+  "events": [
+    {
+      "id": "onSignedIn",
+      "name": "User Signed In",
+      "locale_name": {
+        "fr_FR": "Utilisateur connecté"
+      }
+    },
+    {
+      "id": "onSignedOut",
+      "name": "User Signed Out",
+      "locale_name": {
+        "fr_FR": "Utilisateur Déconnecté"
+      }
+    }
+  ],
+
+  "actions": [
+    {
+      "id": "signOut",
+      "name": "Sign Out",
+      "locale_name": {
+        "fr_FR": "Se déconnecter"
+      }
+    },
+    {
+      "id": "change",
+      "name": "Modify the data",
+      "locale_name": {
+        "fr_FR": "Modifier la donnée"
+      },
+      "params": [
+        {
+          "id": "data",
+          "name": "Target",
+          "locale_name": {
+            "fr_FR": "Cible"
+          },
+          "type": "String",
+          "style": "Explorer"
+        },
+        {
+          "id": "function",
+          "name": "Function",
+          "locale_name": {
+            "fr_FR": "Fonction"
+          },
+          "value": "set",
+          "type": "Dropdown",
+          "items": [
+            {
+              "id": "set",
+              "name": "Set",
+              "locale_name": {
+                "fr_FR": "Définir"
+              }    
+            },
+            {
+              "id": "inc",
+              "name": "Increment",
+              "locale_name": {
+                "fr_FR": "Incrémenter"
+              }    
+            },
+            {
+              "id": "dec",
+              "name": "Decrement",
+              "locale_name": {
+                "fr_FR": "Décrémenter"
+              }    
+            },
+            {
+              "id": "add",
+              "name": "Add",
+              "locale_name": {
+                "fr_FR": "Ajouter"
+              }    
+            },
+            {
+              "id": "del",
+              "name": "Delete",
+              "locale_name": {
+                "fr_FR": "Supprimer"
+              }    
+            },
+            {
+              "id": "delbyid",
+              "name": "Delete by id",
+              "locale_name": {
+                "fr_FR": "Supprimer par id"
+              }    
+            },
+            {
+              "id": "delbyvalue",
+              "name": "Delete by value",
+              "locale_name": {
+                "fr_FR": "Supprimer par valeur"
+              }    
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "name": "Value",
+          "locale_name": {
+            "fr_FR": "Valeur"
+          },
+          "type": "JSON",
+          "bindable": true
+        }
+      ]
+    }
+  ],
+
+  "queryable": {
+    "name": "",
+    "__desc_name": {
+      "name": "Name",
+      "locale_name": {
+        "fr_FR": "Nom"
+      }
+    },
+    "email": "",
+    "__desc_email": {
+      "name": "Email",
+      "locale_name": {
+        "fr_FR": "Email"
+      }
+    }
+  }
+}
+
