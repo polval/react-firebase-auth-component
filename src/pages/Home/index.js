@@ -10,6 +10,8 @@ const Home = () => {
   const currentUser = auth && auth.currentUser;
 
   useEffect(() => {
+    let signedInTrigger = false;
+
     const unsubscribe = currentUser && firestore
       .collection('users')
       .doc(currentUser.uid)
@@ -19,7 +21,11 @@ const Home = () => {
         PandaBridge.send(PandaBridge.UPDATED, {
           queryable: { ...data, id: currentUser.uid },
         });
-        PandaBridge.send('onSignedIn');
+
+        if (signedInTrigger === false) {
+          PandaBridge.send('onSignedIn');
+          signedInTrigger = true;
+        }
       });
 
     return function cleanup() {
